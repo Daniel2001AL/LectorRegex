@@ -1,0 +1,221 @@
+Created by PLY version 3.4 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> expression
+Rule 1     expression -> expression PLUS catexp
+Rule 2     expression -> catexp
+Rule 3     catexp -> catexp ordyexp
+Rule 4     catexp -> ordyexp
+Rule 5     ordyexp -> ordyexp STAR
+Rule 6     ordyexp -> LPAREN expression RPAREN
+Rule 7     ordyexp -> EPS
+Rule 8     ordyexp -> STR
+
+Terminals, with rules where they appear
+
+EPS                  : 7
+LPAREN               : 6
+PLUS                 : 1
+RPAREN               : 6
+STAR                 : 5
+STR                  : 8
+error                : 
+
+Nonterminals, with rules where they appear
+
+catexp               : 1 2 3
+expression           : 1 6 0
+ordyexp              : 3 4 5
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . expression
+    (1) expression -> . expression PLUS catexp
+    (2) expression -> . catexp
+    (3) catexp -> . catexp ordyexp
+    (4) catexp -> . ordyexp
+    (5) ordyexp -> . ordyexp STAR
+    (6) ordyexp -> . LPAREN expression RPAREN
+    (7) ordyexp -> . EPS
+    (8) ordyexp -> . STR
+
+    LPAREN          shift and go to state 4
+    EPS             shift and go to state 5
+    STR             shift and go to state 6
+
+    expression                     shift and go to state 1
+    catexp                         shift and go to state 2
+    ordyexp                        shift and go to state 3
+
+state 1
+
+    (0) S' -> expression .
+    (1) expression -> expression . PLUS catexp
+
+    PLUS            shift and go to state 7
+
+
+state 2
+
+    (2) expression -> catexp .
+    (3) catexp -> catexp . ordyexp
+    (5) ordyexp -> . ordyexp STAR
+    (6) ordyexp -> . LPAREN expression RPAREN
+    (7) ordyexp -> . EPS
+    (8) ordyexp -> . STR
+
+    PLUS            reduce using rule 2 (expression -> catexp .)
+    $end            reduce using rule 2 (expression -> catexp .)
+    RPAREN          reduce using rule 2 (expression -> catexp .)
+    LPAREN          shift and go to state 4
+    EPS             shift and go to state 5
+    STR             shift and go to state 6
+
+    ordyexp                        shift and go to state 8
+
+state 3
+
+    (4) catexp -> ordyexp .
+    (5) ordyexp -> ordyexp . STAR
+
+    LPAREN          reduce using rule 4 (catexp -> ordyexp .)
+    EPS             reduce using rule 4 (catexp -> ordyexp .)
+    STR             reduce using rule 4 (catexp -> ordyexp .)
+    PLUS            reduce using rule 4 (catexp -> ordyexp .)
+    $end            reduce using rule 4 (catexp -> ordyexp .)
+    RPAREN          reduce using rule 4 (catexp -> ordyexp .)
+    STAR            shift and go to state 9
+
+
+state 4
+
+    (6) ordyexp -> LPAREN . expression RPAREN
+    (1) expression -> . expression PLUS catexp
+    (2) expression -> . catexp
+    (3) catexp -> . catexp ordyexp
+    (4) catexp -> . ordyexp
+    (5) ordyexp -> . ordyexp STAR
+    (6) ordyexp -> . LPAREN expression RPAREN
+    (7) ordyexp -> . EPS
+    (8) ordyexp -> . STR
+
+    LPAREN          shift and go to state 4
+    EPS             shift and go to state 5
+    STR             shift and go to state 6
+
+    expression                     shift and go to state 10
+    catexp                         shift and go to state 2
+    ordyexp                        shift and go to state 3
+
+state 5
+
+    (7) ordyexp -> EPS .
+
+    STAR            reduce using rule 7 (ordyexp -> EPS .)
+    LPAREN          reduce using rule 7 (ordyexp -> EPS .)
+    EPS             reduce using rule 7 (ordyexp -> EPS .)
+    STR             reduce using rule 7 (ordyexp -> EPS .)
+    PLUS            reduce using rule 7 (ordyexp -> EPS .)
+    $end            reduce using rule 7 (ordyexp -> EPS .)
+    RPAREN          reduce using rule 7 (ordyexp -> EPS .)
+
+
+state 6
+
+    (8) ordyexp -> STR .
+
+    STAR            reduce using rule 8 (ordyexp -> STR .)
+    LPAREN          reduce using rule 8 (ordyexp -> STR .)
+    EPS             reduce using rule 8 (ordyexp -> STR .)
+    STR             reduce using rule 8 (ordyexp -> STR .)
+    PLUS            reduce using rule 8 (ordyexp -> STR .)
+    $end            reduce using rule 8 (ordyexp -> STR .)
+    RPAREN          reduce using rule 8 (ordyexp -> STR .)
+
+
+state 7
+
+    (1) expression -> expression PLUS . catexp
+    (3) catexp -> . catexp ordyexp
+    (4) catexp -> . ordyexp
+    (5) ordyexp -> . ordyexp STAR
+    (6) ordyexp -> . LPAREN expression RPAREN
+    (7) ordyexp -> . EPS
+    (8) ordyexp -> . STR
+
+    LPAREN          shift and go to state 4
+    EPS             shift and go to state 5
+    STR             shift and go to state 6
+
+    catexp                         shift and go to state 11
+    ordyexp                        shift and go to state 3
+
+state 8
+
+    (3) catexp -> catexp ordyexp .
+    (5) ordyexp -> ordyexp . STAR
+
+    LPAREN          reduce using rule 3 (catexp -> catexp ordyexp .)
+    EPS             reduce using rule 3 (catexp -> catexp ordyexp .)
+    STR             reduce using rule 3 (catexp -> catexp ordyexp .)
+    PLUS            reduce using rule 3 (catexp -> catexp ordyexp .)
+    $end            reduce using rule 3 (catexp -> catexp ordyexp .)
+    RPAREN          reduce using rule 3 (catexp -> catexp ordyexp .)
+    STAR            shift and go to state 9
+
+
+state 9
+
+    (5) ordyexp -> ordyexp STAR .
+
+    STAR            reduce using rule 5 (ordyexp -> ordyexp STAR .)
+    LPAREN          reduce using rule 5 (ordyexp -> ordyexp STAR .)
+    EPS             reduce using rule 5 (ordyexp -> ordyexp STAR .)
+    STR             reduce using rule 5 (ordyexp -> ordyexp STAR .)
+    PLUS            reduce using rule 5 (ordyexp -> ordyexp STAR .)
+    $end            reduce using rule 5 (ordyexp -> ordyexp STAR .)
+    RPAREN          reduce using rule 5 (ordyexp -> ordyexp STAR .)
+
+
+state 10
+
+    (6) ordyexp -> LPAREN expression . RPAREN
+    (1) expression -> expression . PLUS catexp
+
+    RPAREN          shift and go to state 12
+    PLUS            shift and go to state 7
+
+
+state 11
+
+    (1) expression -> expression PLUS catexp .
+    (3) catexp -> catexp . ordyexp
+    (5) ordyexp -> . ordyexp STAR
+    (6) ordyexp -> . LPAREN expression RPAREN
+    (7) ordyexp -> . EPS
+    (8) ordyexp -> . STR
+
+    PLUS            reduce using rule 1 (expression -> expression PLUS catexp .)
+    $end            reduce using rule 1 (expression -> expression PLUS catexp .)
+    RPAREN          reduce using rule 1 (expression -> expression PLUS catexp .)
+    LPAREN          shift and go to state 4
+    EPS             shift and go to state 5
+    STR             shift and go to state 6
+
+    ordyexp                        shift and go to state 8
+
+state 12
+
+    (6) ordyexp -> LPAREN expression RPAREN .
+
+    STAR            reduce using rule 6 (ordyexp -> LPAREN expression RPAREN .)
+    LPAREN          reduce using rule 6 (ordyexp -> LPAREN expression RPAREN .)
+    EPS             reduce using rule 6 (ordyexp -> LPAREN expression RPAREN .)
+    STR             reduce using rule 6 (ordyexp -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 6 (ordyexp -> LPAREN expression RPAREN .)
+    $end            reduce using rule 6 (ordyexp -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 6 (ordyexp -> LPAREN expression RPAREN .)
+
