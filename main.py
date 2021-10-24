@@ -3,19 +3,26 @@ import my_nfa
 
 REGEX = '(\w+\^\+|\(\w+\+*\w*\)\^\+)'
 
+def open_file(filename):
+    with open(filename,'r',encoding='utf-8') as file:
+        regex = file.read()
+        regex = regex.replace('\n','')
+        regex = regex.replace(' ','')
+    return regex
 
-
-if __name__ == '__main__':
-    #regex = input('Ingrese una expresión regular: ')
-    regex = '(a+b)^++(a+b+epsilon)^*(b+c)^*'
-    if '^+' in regex:
-        regex = re_to_nfa.format_one_more(regex,REGEX)
-    if 'epsilon' in regex:
+def filter_regex(my_regex):
+    if '^+' in my_regex:
+        my_regex = re_to_nfa.format_one_more(regex,REGEX)
+    if 'epsilon' in my_regex:
         print('Es epsilon')
-        regex = regex.replace('epsilon',"''")
-    if '^*' in regex:
+        my_regex = my_regex.replace('epsilon',"''")
+    if '^*' in my_regex:
         print('Tiene ^*')
-        regex = regex.replace('^*','*')
+        my_regex = my_regex.replace('^*','*')
+    return my_regex
+if __name__ == '__main__':
+    regex = open_file('my_regex.txt')
+    regex = filter_regex(regex)
 
     new_nfa = re_to_nfa.re2nfa(regex)
     print(new_nfa)
