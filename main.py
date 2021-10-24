@@ -12,7 +12,7 @@ def open_file(filename):
 
 def filter_regex(my_regex):
     if '^+' in my_regex:
-        my_regex = re_to_nfa.format_one_more(regex,REGEX)
+        my_regex = re_to_nfa.format_one_more(my_regex,REGEX)
     if 'epsilon' in my_regex:
         print('Es epsilon')
         my_regex = my_regex.replace('epsilon',"''")
@@ -20,7 +20,8 @@ def filter_regex(my_regex):
         print('Tiene ^*')
         my_regex = my_regex.replace('^*','*')
     return my_regex
-if __name__ == '__main__':
+
+def run():
     regex = open_file('my_regex.txt')
     regex = filter_regex(regex)
 
@@ -33,3 +34,5 @@ if __name__ == '__main__':
         print('Es válido')
     else:
         print('No es válido')
+if __name__ == '__main__':
+    run()
