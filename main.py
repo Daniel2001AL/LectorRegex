@@ -33,13 +33,11 @@ def run():
         regex = filter_regex(regex)
         new_nfa = re2nfa(regex)
         string = text_field.get()
-        if string != '':
-            res = accepts_nfa(new_nfa,string)
-            if res:
-                messagebox.showinfo(message='Es válido',title='Resultado')
-            else:
-                messagebox.showerror(message='NO es válido',title='Resultado')
-        else: messagebox.showerror(message='Ingrese una cadena',title='Resultado')
+        res = accepts_nfa(new_nfa,string)
+        if res:
+            messagebox.showinfo(message='Es válido',title='Resultado')
+        else:
+            messagebox.showerror(message='NO es válido',title='Resultado')
     else:   messagebox.showerror(message='Ingrese una expresión regular',title='Error')
 
 
