@@ -20,6 +20,7 @@ def filter_regex(my_regex):
     if 'epsilon' in my_regex:
         my_regex = my_regex.replace('epsilon',"''")
     if '^*' in my_regex:
+        my_regex = my_regex.replace('^*+','^*')
         my_regex = my_regex.replace('^*','*')
     return my_regex
 
