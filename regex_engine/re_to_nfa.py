@@ -1,7 +1,7 @@
-from my_lex     import lex
-from my_yacc    import yacc
+from .my_lex import lex
+from .my_yacc import yacc
 import re
-from my_nfa import mk_nfa
+from .my_nfa import mk_nfa
 
 NXTSTATENUM       = 0
 
