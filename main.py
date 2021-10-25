@@ -24,7 +24,6 @@ def filter_regex(my_regex):
     if '^*' in my_regex:
         my_regex = my_regex.replace('^*+','^*')
         my_regex = my_regex.replace('^*','*')
-    print(my_regex)
     return my_regex
 
 def run():
