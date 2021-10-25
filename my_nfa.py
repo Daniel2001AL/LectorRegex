@@ -3,16 +3,8 @@ from functools import reduce
 def mk_nfa(Q, Sigma, Delta, Q0, F):
     newNFA = {"Q":Q, "Sigma":Sigma, "Delta":Delta, "Q0":Q0, "F":F}
     return(newNFA)
-  
 
 def step_nfa(N, q, c):
-    assert(
-        c in (N["Sigma"] | {""})
-    ), "c given to step_nfa not in Sigma."
-    assert(
-        q in  N["Q"]
-    ), "q given to step_nfa not in Q."
-
     if (q,c) in N["Delta"].keys():
         return  N["Delta"][(q,c)]
     else:

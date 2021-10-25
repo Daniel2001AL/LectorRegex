@@ -46,12 +46,12 @@ t_ignore = " \t"
 #-- Upon new lines, increase the lexer's line count variable
 def t_newline(t):
     r'\n+'
-    print("Obteniendo nueva línea")
+    """print("Obteniendo nueva línea")"""
     t.lexer.lineno += t.value.count("\n")
 
 #-- Lexer's error announcer for illegal characters
 def t_error(t):
-    print("Caracter inválido '%s'" % t.value[0])
+    #print("Caracter inválido '%s'" % t.value[0])
     t.lexer.skip(1)
     
 #-- We don't build lexer here; we build before calling yacc()
@@ -80,13 +80,13 @@ precedence = (
 
 def p_expression_plus(t):
     '''expression : expression PLUS catexp'''
-    print("Se obtuvo un token +")
+    #print("Se obtuvo un token +")
     t[0] = mk_plus_nfa(t[1], t[3]) # Union of the two NFAs is returned
     
 def mk_plus_nfa(N1, N2):
     """Given two NFAs, return their union.
     """
-    print("Dado al parseo de dos NFA, se hace un NFA PLUS-conectado")
+    #print("Dado al parseo de dos NFA, se hace un NFA PLUS-conectado")
     delta_accum = dict({})
     delta_accum.update(N1["Delta"])
     delta_accum.update(N2["Delta"]) 
@@ -237,9 +237,18 @@ def re2nfa(s, stno = 0):
 def format_one_more(my_expression,regex):
     find = re.search(regex,my_expression)
     expression = find.group(1)
-    print(expression)
     new_e = expression.replace('^+','')
     if '(' not in new_e and ')' not in new_e:
             new_e = '('+new_e+')'
     new_string = my_expression.replace(expression,f'{new_e}{new_e}*')
+    return new_string
+
+def format_expo_num(string,regex):
+    search_num = re.compile(regex)
+    expression = search_num.search(string).group(1)
+    number = re.search('[0-9]+',expression).group(0)
+    new_e = re.sub('\^[0-9]+','',expression)
+    if '(' not in new_e and ')' not in new_e:
+            new_e = '('+new_e+')'
+    new_string = new_e * int(number)
     return new_string
