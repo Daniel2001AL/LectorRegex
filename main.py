@@ -7,9 +7,9 @@ from regex_engine.re_to_nfa import format_expo_num, format_one_more
 from regex_engine import accepts_nfa
 import re
 
-REGEX_ONE_MORE = '(\w+\^\+|\(\w+\+*\w*\)\^\+)'
+REGEX_ONE_MORE = '(\w+\^\+|\(\w+(\+\w)*\)\^\+)'
 
-REGEX_EXPO_NUMBER = '(\w+\^[0-9]+|\(\w+\+*\w*\)\^[0-9]+)'
+REGEX_EXPO_NUMBER = '(\w+\^[0-9]+|\(\w+(\+\w)*\)\^[0-9]+)'
 
 def filter_regex(my_regex):
     if '^+' in my_regex:
@@ -41,6 +41,7 @@ def run():
         my_label['text'] ='Expresión Regular: '
         regex_label['text'] = regex
         regex = filter_regex(regex)
+        print(regex)
         new_nfa = re2nfa(regex)
         string = text_field.get()
         res = accepts_nfa(new_nfa,string)

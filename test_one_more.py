@@ -6,7 +6,7 @@ strings = ['(a+b)^+','ab^+','(a+b)^++(a+b+epsilon)^*(b+c)^*']
 
 expected_string = ['(a+b)(a+b)*','(ab)(ab)*','(a+b)(a+b)*+(a+b+epsilon)^*(b+c)^*']
 
-REGEX = '(\w+\^\+|\(\w+\+*\w*\)\^\+)'
+REGEX = '(\w+\^\+|\(\w+(\+\w)*\)\^\+)'
 
 def first_try():
     index = strings[0].index('^+')
@@ -64,7 +64,8 @@ def format_one_more(my_expression):
     return (my_expression,find)
 if __name__ == '__main__':
     #my_regex = '(a+b)^++(a+b+epsilon)^*(b+c)^*'
-    my_regex = '(a+b)^+(x+epsilon)^+'
+    #my_regex = '(a+b)^+(x+epsilon)^+'
+    my_regex = '(a+b+c)^+(d+e+x)^+'
     #my_regex = '(a+b)(a+b)*'
     find_patterns = ''
     while find_patterns is not None:
