@@ -17,11 +17,14 @@ def filter_regex(my_regex):
         my_regex = format_one_more(my_regex,REGEX_ONE_MORE)
     if re.match(r'.*\^[0-9]+',my_regex):
         my_regex = format_expo_num(my_regex,REGEX_EXPO_NUMBER)
+        my_regex = my_regex.replace(')+',')')
+        my_regex = my_regex.replace('+(','(')
     if 'epsilon' in my_regex:
         my_regex = my_regex.replace('epsilon',"''")
     if '^*' in my_regex:
         my_regex = my_regex.replace('^*+','^*')
         my_regex = my_regex.replace('^*','*')
+    print(my_regex)
     return my_regex
 
 def run():

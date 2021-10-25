@@ -251,4 +251,5 @@ def format_expo_num(string,regex):
     if '(' not in new_e and ')' not in new_e:
             new_e = '('+new_e+')'
     new_string = new_e * int(number)
-    return new_string
+    new_expression = string.replace(expression,new_string)
+    return new_expression
