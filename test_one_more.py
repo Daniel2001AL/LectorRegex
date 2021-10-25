@@ -1,4 +1,5 @@
 import re
+from tkinter.constants import NONE
 
 
 strings = ['(a+b)^+','ab^+','(a+b)^++(a+b+epsilon)^*(b+c)^*']
@@ -49,19 +50,28 @@ def second_try():
 
 
 def format_one_more(my_expression):
+    print(my_expression)
     find = re.search(REGEX,my_expression)
-    expression = find.group(1)
-    print(expression)
-    new_e = expression.replace('^+','')
-    if '(' not in new_e and ')' not in new_e:
-            new_e = '('+new_e+')'
-    new_string = my_expression.replace(expression,f'{new_e}{new_e}*')
-    print('Original: ', my_expression)
-    print('Formateado: ',new_string)
-    return new_string
+    if find is not None:
+        expression = find.group(1)
+        print(expression)
+        new_e = expression.replace('^+','')
+        if '(' not in new_e and ')' not in new_e:
+                new_e = '('+new_e+')'
+        my_expression = my_expression.replace(expression,f'{new_e}{new_e}*')
+        print('Original: ', my_expression)
+        print('Formateado: ',my_expression)
+    return (my_expression,find)
 if __name__ == '__main__':
-    my_regex = '(a+b)^++(a+b+epsilon)^*(b+c)^*'
-    my_regex = format_one_more(my_regex)
+    #my_regex = '(a+b)^++(a+b+epsilon)^*(b+c)^*'
+    my_regex = '(a+b)^+(x+epsilon)^+'
+    #my_regex = '(a+b)(a+b)*'
+    find_patterns = ''
+    while find_patterns is not None:
+        res = format_one_more(my_regex)
+        my_regex = res[0]
+        find_patterns = res[1]
+        
 
     print(my_regex)
     if '^*' in my_regex:
@@ -71,4 +81,8 @@ if __name__ == '__main__':
         print('Es epsilon')
         my_regex = my_regex.replace('epsilon',"''")
     print(my_regex)
+    pattern = re.compile(REGEX)
+    for matches in re.findall(pattern,my_regex):
+        print('a')
+
     

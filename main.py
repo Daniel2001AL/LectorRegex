@@ -14,9 +14,17 @@ REGEX_EXPO_NUMBER = '(\w+\^[0-9]+|\(\w+\+*\w*\)\^[0-9]+)'
 def filter_regex(my_regex):
     if '^+' in my_regex:
         my_regex = my_regex.replace('^++','^+')
-        my_regex = format_one_more(my_regex,REGEX_ONE_MORE)
+        find_pattern = ''
+        while find_pattern is not None:
+            result = format_one_more(my_regex,REGEX_ONE_MORE)
+            my_regex = result[0]
+            find_pattern = result[1]
     if re.match(r'.*\^[0-9]+',my_regex):
-        my_regex = format_expo_num(my_regex,REGEX_EXPO_NUMBER)
+        find_pattern = ''
+        while find_pattern is not None:
+            result = format_expo_num(my_regex,REGEX_EXPO_NUMBER)
+            my_regex = result[0]
+            find_pattern = result[1]
         my_regex = my_regex.replace(')+',')')
         my_regex = my_regex.replace('+(','(')
     if 'epsilon' in my_regex:

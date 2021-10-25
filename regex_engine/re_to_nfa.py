@@ -236,20 +236,23 @@ def re2nfa(s, stno = 0):
 
 def format_one_more(my_expression,regex):
     find = re.search(regex,my_expression)
-    expression = find.group(1)
-    new_e = expression.replace('^+','')
-    if '(' not in new_e and ')' not in new_e:
-            new_e = '('+new_e+')'
-    new_string = my_expression.replace(expression,f'{new_e}{new_e}*')
-    return new_string
+    if find is not None:
+        expression = find.group(1)
+        new_e = expression.replace('^+','')
+        if '(' not in new_e and ')' not in new_e:
+                new_e = '('+new_e+')'
+        my_expression = my_expression.replace(expression,f'{new_e}{new_e}*')
+    return (my_expression,find)
 
 def format_expo_num(string,regex):
     search_num = re.compile(regex)
-    expression = search_num.search(string).group(1)
-    number = re.search('[0-9]+',expression).group(0)
-    new_e = re.sub('\^[0-9]+','',expression)
-    if '(' not in new_e and ')' not in new_e:
-            new_e = '('+new_e+')'
-    new_string = new_e * int(number)
-    new_expression = string.replace(expression,new_string)
-    return new_expression
+    find = search_num.search(string)
+    if find is not None:
+        expression = find.group(1)
+        number = re.search('[0-9]+',expression).group(0)
+        new_e = re.sub('\^[0-9]+','',expression)
+        if '(' not in new_e and ')' not in new_e:
+                new_e = '('+new_e+')'
+        new_string = new_e * int(number)
+        string = string.replace(expression,new_string)
+    return (string,find)
